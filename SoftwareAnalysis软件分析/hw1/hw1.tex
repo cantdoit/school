@@ -1,0 +1,315 @@
+% !TEX TS-program = XeLaTeX
+%% compile with xelatex sudo easy_install Pygments
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[UTF8]{ctex}
+\usepackage{homework}
+
+\title{作业 1}
+\duedate{2024 年 3 月 28 日}
+% TODO your name and ID
+\studentname{Johnson 许霆康}
+\studentid{2019080126}
+
+\begin{document}
+
+\maketitle
+
+\textit{在开始完成作业前，请仔细阅读以下说明：}
+\begin{itemize}
+    \item 我们提供作业的\LaTeX 源码，你可以在其中直接填充你的答案并编译PDF（请使用xelatex）。
+    当然，你也可以使用别的方式完成作业（例如撰写纸质作业后扫描到PDF文件之中）。
+    但是请注意，最终的提交一定只是PDF文件。提交时请务必\emph{再次核对}，防止提交错误。
+    \item 在你的作业中，请务必填写你的\emph{姓名}和\emph{学号}，并检查是否有题目遗漏。请重点注意每次作业的\emph{截止时间}。
+    截止时间之后你仍可以联系助教补交作业，但是我们会按照如下公式进行分数的折扣：
+    \begin{align*}
+        \text{作业分数} = \text{满分}\times\left(1 - 10\%\times\min\left(\lceil\text{迟交周数}\rceil, 10\right)\right)\times\text{正确率}.
+    \end{align*}
+    \item 本次作业为独立作业，\emph{禁止}抄袭等一切不诚信行为。作业中，如果涉及参考资料，请\emph{引用}注明。
+\end{itemize}
+
+%% problem begins
+
+\problem{判断题}
+
+给定下列陈述，请判断其是否正确。如果错误，请给出反例或解释原因。
+
+\subproblem 给定任意的命题逻辑公式，它是否为永假式一定是可判定的。
+
+\begin{solution}
+    % DONE
+    True.
+\end{solution}
+
+\subproblem 给定命题逻辑公式$F$和$G$，如果$F$是有效的且$G$不是有效的，
+则$F\rightarrow G$一定不可满足。
+
+\begin{solution}
+    % DONE
+    False.
+    $F$ is always true since it is valid and $G$ contains some outcome which can be true since it is not valid. Therefore $F \rightarrow G$ is satisfiable.
+\end{solution}
+
+\subproblem 给定命题逻辑公式$F$和$G$，如果$F$是可满足的且$\neg G$是不可满足的，则$F\wedge G$一定可满足。
+
+\begin{solution}
+    % DONE
+    True.
+    $F$ is satisfiable and $G$ is valid. 
+\end{solution}
+
+\subproblem 任意给定一个一阶逻辑公式，一定可以在有限时间内判定其是否有效。
+
+\begin{solution}
+    % DONE
+    True.
+\end{solution}
+
+
+% \newpage
+\problem{解答题}
+\subproblem 考虑下列公式（记作F）：
+$$(P \lor Q \to R) \to (\lnot R \lor \lnot P) \to (Q \to R)$$
+请列出它的真值表，并判断它是否有效. 若有效，请使用$\mathcal{S}_{PL}$证明其有效性，即给出$\vdash F$的证明.
+
+\begin{solution}
+    % DONE damn so hard to type
+\[
+\begin{array}{|c|c|c|c|c|c|c|c|}
+\hline
+P & Q & R & (P \lor Q \rightarrow R) & (\neg R \lor \neg P) & (Q \rightarrow R) & (P \lor Q \rightarrow R) \rightarrow (\neg R \lor \neg P) \rightarrow (Q \rightarrow R) \\
+\hline
+\text{T} & \text{T} & \text{T} & \text{T} & \text{F} & \text{T} & \text{T} \\
+\text{T} & \text{T} & \text{F} & \text{F} & \text{T} & \text{F} & \text{T} \\
+\text{T} & \text{F} & \text{T} & \text{T} & \text{F} & \text{T} & \text{T} \\
+\text{T} & \text{F} & \text{F} & \text{F} & \text{T} & \text{T} & \text{T} \\
+\text{F} & \text{T} & \text{T} & \text{T} & \text{T} & \text{T} & \text{T} \\
+\text{F} & \text{T} & \text{F} & \text{F} & \text{T} & \text{F} & \text{T} \\
+\text{F} & \text{F} & \text{T} & \text{T} & \text{T} & \text{T} & \text{T} \\
+\text{F} & \text{F} & \text{F} & \text{T} & \text{T} & \text{T} & \text{T} \\
+\hline
+\end{array}
+\]
+\[
+\infer[\text{($\rightarrow R$)}]
+{\vdash (P \lor Q \rightarrow R) \rightarrow (\neg R \lor \neg P) \rightarrow (Q \rightarrow R)}
+{
+    \infer[\text{($\rightarrow R$)}]
+    {P \lor Q \rightarrow R \vdash (\neg R \lor \neg P) \rightarrow (Q \rightarrow R)}
+    {
+        \infer[\text{($\rightarrow R$)}]
+        {P \lor Q \rightarrow R, \neg R \lor \neg P \vdash Q \rightarrow R}
+        {
+        	    \infer[\text{($\rightarrow L$)}]
+	    {P \lor Q \rightarrow R, \neg R \lor \neg P ,Q \vdash R}
+	    {
+	        \infer[\text{($\neg R$)}]
+	        {P \lor Q \rightarrow R, Q \vdash \neg R, R}	       
+	            {
+	            	\infer[\text{($Ax$)}]
+	            	{P \lor Q \rightarrow R, Q, R \vdash R}
+	            }
+	        \quad
+	        \infer[\text{($\rightarrow L$)}]
+	        {P \lor Q \rightarrow R , \neg P, Q \vdash R}
+	            {
+	            	\infer[\text{($\rightarrow R$)}]
+	                {\neg P, Q \vdash P \lor Q, R}
+	                    {
+	                        \infer[\text{($Ax$)}]
+	                        {\neg P, P, Q \vdash Q, R}
+	                    }
+	                \quad
+	                \infer[\text{($Ax$)}]
+	                {\neg P, Q, R \vdash R}
+	                {}
+	            }
+	    }
+        }
+    }
+}
+\]
+\end{solution}
+
+\subproblem 证明$\mathcal{S}_{PL}$的切规则是可靠的：
+
+$$
+\infer[\text{(切)}]
+{\Gamma \vdash \Delta}
+{\Gamma \vdash C, \Delta \qquad \Gamma,C \vdash \Delta}
+$$
+
+\begin{solution}
+    % DOne
+    Proof by Induction such that from height 1 to n where there is an instance where there exists an Axiom which shows it is satisfiable.
+    
+    Assuming we have the following:
+
+$$
+\infer[\text{(cut)}]
+{\Gamma, A \vdash \Delta}
+{\Gamma, A\vdash A, \Delta \qquad \Gamma, A \vdash \Delta}
+$$
+$${\big\downarrow}$$
+$$
+\infer[\text{(cut)}]
+{\Gamma, A \vdash \Delta}
+{
+    \infer[\text{(Axiom)}]
+    {\Gamma, A\vdash A, \Delta}
+	\qquad
+	\infer 
+	{\Gamma, A \vdash \Delta}
+	{\bigtriangledown}
+	}
+$$
+
+Since from this get an Axiom it means that it would be satisfiable as long as we can reach an instance of {\Gamma, A \vdash \Delta}
+    
+    Assuming the previous as Part 1, now returning to the initial equation:
+    
+$$
+\infer[\text{(cut)}]
+{\Gamma \vdash \Delta}
+{\Gamma \vdash B, \Delta \qquad \Gamma, B \vdash \Delta}
+$$
+$${\big\downarrow}$$
+$$
+\infer[\text{(cut)}]
+{\Gamma \vdash \Delta}
+{
+    \infer[\text{}]
+    {\Gamma, \vdash B, \Delta}
+    {
+        {\bigtriangledown}
+    }
+	\qquad
+	\infer[\text{(cut)}]
+	{\Gamma, B \vdash \Delta}
+	{\text{Part 1}}
+	}
+$$
+We can see that cut would give us Part 1 which means there exists an Axiom and therefore for any {\Gamma \vdash \Delta}, 
+\text{there exists a cut which results in a solution therefore proving it is satisfiable.}
+    
+\end{solution}
+
+\subproblem 考虑论域$\domain = \{\circ, \bullet\}$以及下面的解释函数
+\begin{itemize}
+  \item $\interpretation(f) = \{(\circ, \circ)\mapsto \bullet, (\circ, \bullet)\mapsto \circ, (\bullet, \circ)\mapsto \bullet, (\bullet, \bullet)\mapsto \circ\}$
+  \item $\interpretation(g) = \{\circ \mapsto \bullet, \bullet \mapsto \circ\}$
+  \item $\interpretation(p) = \{(\bullet, \circ), (\circ, \bullet)\}$
+\end{itemize}
+求公式$\forall x.p(f(g(x), x), x)$的取值。
+
+\begin{solution}
+    % TODOne
+    \begin{itemize}
+    \item $Let {\llbracket x \rrbracket}_{\mathcal{M},\rho} = \circ$
+    \item ${\llbracket g(x) \rrbracket}_{\mathcal{M},\rho} = \interpretation(g)({\llbracket x \rrbracket}_{\mathcal{M},\rho}) = \interpretation(g)(\circ) = \bullet$
+    \item ${\llbracket f(g(x), x) \rrbracket}_{\mathcal{M},\rho} = \interpretation(f)(\bullet, \circ)$ = \bullet$
+    \item ${\llbracket p(f(g(x), x), x) \rrbracket}_{\mathcal{M},\rho} = \interpretation(p)(\bullet, \circ) = true$
+    \item $Let {\llbracket x \rrbracket}_{\mathcal{M},\rho} = \bullet$
+    \item ${\llbracket g(x) \rrbracket}_{\mathcal{M},\rho} = \interpretation(g)({\llbracket x \rrbracket}_{\mathcal{M},\rho}) = \interpretation(g)(\bullet) = \circ$
+    \item ${\llbracket f(g(x), x) \rrbracket}_{\mathcal{M},\rho} = \interpretation(f)(\circ, \bullet)$ = \circ$
+    \item ${\llbracket p(f(g(x), x), x) \rrbracket}_{\mathcal{M},\rho} = \interpretation(p)(\circ, \bullet) = true$
+    \item For all of $x = \{\circ, \bullet\}$ is True therefore $\forall x.p(f(g(x), x), x)$ is True.
+    \end{itemize}
+\end{solution}
+
+\subproblem 请使用$\mathcal{S}_{FOL}$（包含命题逻辑中的10条规则和4条量词消去规则）构建推导树证明下列两个相继式：
+
+\begin{enumerate}
+    \item $\exists x.(p(x)\rightarrow q(x)) \vdash \forall y.p(y) \rightarrow \exists z.q(z)$
+    \item $\forall y.p(y)\rightarrow \exists z.q(z) \vdash \exists x.(p(x)\rightarrow q(x))$
+\end{enumerate}
+
+\begin{solution}
+    % TODOne Iam going to krill myself
+    
+    $\exists x.(p(x)\rightarrow q(x)) \vdash \forall y.p(y) \rightarrow \exists z.q(z)$
+    $$
+    \infer[\text{($\rightarrow R$)}]
+    {\exists x.(p(x)\rightarrow q(x)) \vdash \forall y.p(y) \rightarrow \exists z.q(z)}
+    {
+    	\infer[\text{($\neg R$)}]
+   	 {\exists x.(p(x)\rightarrow q(x)), \forall y.p(y) \vdash \exists z.q(z)}
+	 {
+	 	\infer[\text{($\exists L$)}]
+	 	{\exists x.(p(x)\rightarrow q(x)), \forall y.p(y), \neg \exists z.\neg q(z) \vdash \perp}
+		{
+			\infer[\text{($\neg L$)}]
+			{\exists x.(p(x)\rightarrow q(x)), \forall y.p(y), \neg q(c) \vdash \perp}
+			{
+				\infer[\text{($\neg L$)}]
+				{\exists x.(p(x)\rightarrow q(x)), \forall y.p(y), \vdash q(c)}
+				{
+					\infer[\text{($\forall R$)}]
+					{\exists x.(p(x)\rightarrow q(x)) \vdash \neg \forall y.\neg p(y), q(c)}
+					{
+						\infer[\text{($\exists L$)}]
+						{\exists x.(p(x)\rightarrow q(x)) \vdash \neg p(c), q(c)}
+						{
+							\infer[\text{($\rightarrow L$)}]
+							{p(c) \rightarrow q(c)) \vdash \neg p(c),q(c)}
+							{
+							\infer[\text{($\neg L$)}]
+							{\vdash p(c) \neg p(c), q(c)}
+							{
+								\infer[\text{(Ax)}]
+								{p(c) \vdash p(c), q(c)}
+							}
+							\quad
+							\infer[\text{(Ax)}]
+							{q(c) \vdash q(c), \neg p(c)}
+							}
+						}
+					}
+				}
+			}
+		}
+	 }
+	 }
+    $$
+    
+   $\forall y.p(y)\rightarrow \exists z.q(z) \vdash \exists x.(p(x)\rightarrow q(x))$
+   $$
+   \infer[\text{($\neg R$)}]
+   {\forall y.p(y)\rightarrow \exists z.q(z) \vdash \exists x.(p(x)\rightarrow q(x))}
+   {
+   	\infer[\text{($\exists L$)}]
+	{\forall y.p(y)\rightarrow \exists z.q(z)  \neg \exists x.\neg (p(x)\rightarrow q(x)) \vdash \perp}
+	{
+		\infer[\text{($\neg L$)}]
+		{\forall y.p(y)\rightarrow \exists z.q(z), \neg (p(c)\rightarrow q(c)) \vdash \perp}
+		{
+			\infer[\text{($\rightarrow R$)}]
+			{\forall y.p(y)\rightarrow \exists z.q(z) \vdash p(c)\rightarrow q(c)}
+			{
+				\infer[\text{($\rightarrow L$)}]
+				{\forall y.p(y)\rightarrow \exists z.q(z), p(c) \vdash q(c)}
+				{
+					\infer[\text{($\forall R$)}]
+					{p(c) \vdash \forall y.p(y), q(c)}
+					{	
+						\infer[\text{(Ax)}]
+						{p(c) \vdash p(c), q(c)}
+					}
+				\quad
+					\infer[\text{($\exists L$)}]
+					{p(c), \exists z.q(z) \vdash q(c)}
+					{
+						\infer[\text{(Ax)}]
+						{p(c), q(c) \vdash q(c)}
+					}
+				}
+			}
+		}
+	}
+   }
+   
+   $$
+
+\end{solution}
+
+\end{document}
